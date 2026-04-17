@@ -27,13 +27,13 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = [
     "rest_framework",
-    "django-countries",
+    "django_countries",
     "phonenumber_field",
     "django_filters",
-    "drf-spectacular",
+    "drf_spectacular",
     "cloudinary",
     "djoser",
-    "djcelery-email",
+    "djcelery_email",
     "django_celery_beat",
 ]
 
