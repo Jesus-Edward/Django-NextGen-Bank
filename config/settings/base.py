@@ -158,7 +158,6 @@ LOGURU_LOGGING = {
             "retention": "30 days",
             "compression": "zip",
         },
-
         {
             "sink": BASE_DIR / "logs/error.log",
             "level": "ERROR",
@@ -168,20 +167,14 @@ LOGURU_LOGGING = {
             "retention": "30 days",
             "compression": "zip",
             "backtrace": True,
-            "diagnose": True
+            "diagnose": True,
         },
     ],
 }
 logger.configure(**LOGURU_LOGGING)
 LOGGING = {
-    'version': 1,
+    "version": 1,
     "disable_existing_loggers": False,
-    "handlers": {
-        "loguru": {
-            "class": "interceptor.InterceptHandler"
-            }
-    },
-    "root": {
-        "handlers": ["loguru"], "level": "DEBUG"
-    }
+    "handlers": {"loguru": {"class": "interceptor.InterceptHandler"}},
+    "root": {"handlers": ["loguru"], "level": "DEBUG"},
 }
