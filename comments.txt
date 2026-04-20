@@ -1,0 +1,2 @@
+# -d flag means running in datached mode
+# --rm flag removes the container after running the command
