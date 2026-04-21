@@ -1,9 +1,9 @@
 from dotenv import load_dotenv
 from os import path, getenv
-from .base import * # noqa
+from .base import *  # noqa
 from .base import BASE_DIR
 
-load_env_files = path.join(BASE_DIR, ".envs", '.env.local')
+load_env_files = path.join(BASE_DIR, ".envs", ".env.local")
 if path.isfile(load_env_files):
     load_dotenv(load_env_files)
 
@@ -27,4 +27,10 @@ DOMAIN = getenv("DOMAIN")
 
 MAX_UPLOAD_SIZE = 1 * 1024 * 1024  # 5MB
 
+CSRF_TRUSTED_ORIGINS = ["http://localhost:8080"]
 
+LOGOUT_DURATION = timedelta(minutes=1)
+
+LOGIN_ATTEMPTS = 3
+
+OTP_EXPIRATION = timedelta(minutes=1)
