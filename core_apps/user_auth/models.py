@@ -62,7 +62,7 @@ class User(AbstractUser):
 
     objects = UserManager() # object is a special attribute that represents the default manager for a model in django
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["password", "first_name", "last_name", "roles", "security_question", "id_no", "security_answer"]
+    REQUIRED_FIELDS = ["username", "password", "first_name", "last_name", "roles", "security_question", "id_no", "security_answer"]
 
     def set_otp(self, otp:str) -> None:
         self.otp = otp
