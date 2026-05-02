@@ -1,2 +1,3 @@
 # -d flag means running in datached mode
 # --rm flag removes the container after running the command
+# (api) AugustJnr@AugustJnr api % python -c "import secrets; print(secrets.token_urlsafe(38))"

@@ -36,3 +36,9 @@ v-inspect:
 
 banker-db:
 	docker compose -f local.yml exec postgres psql --username=august.dev --dbname=banker
+
+show-migrations:
+	docker compose -f local.yml run --rm api python manage.py showmigrations user_profile
+
+rollback:
+	docker compose -f local.yml run --rm api python manage.py migrate user_profile zero

@@ -1,5 +1,6 @@
 import uuid
 from typing import TYPE_CHECKING, Any, Optional
+
 # from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
@@ -13,7 +14,9 @@ from core_apps.user_auth.models import User
 # User = get_user_model()
 if TYPE_CHECKING:
     from django.contrib.auth import get_user_model
+
     User = get_user_model()
+
 
 # the abstract property tells django not to create the model in the database but acts as a base class for other models
 class TimestampedModel(models.Model):
@@ -24,12 +27,24 @@ class TimestampedModel(models.Model):
     class Meta:
         abstract = True
 
+
 class ContentView(TimestampedModel):
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, verbose_name=_("Content Type"))
+    content_type = models.ForeignKey(
+        ContentType, on_delete=models.CASCADE, verbose_name=_("Content Type")
+    )
     object_id = models.UUIDField(verbose_name=_("Object ID"))
     content_object = GenericForeignKey("content_type", "object_id")
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name="content_views", verbose_name=_("User"))
-    viewer_ip = models.GenericIPAddressField(verbose_name=_("Viewer IP Address"), null=True, blank=True)
+    user = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="content_views",
+        verbose_name=_("User"),
+    )
+    viewer_ip = models.GenericIPAddressField(
+        verbose_name=_("Viewer IP Address"), null=True, blank=True
+    )
     last_viewed = models.DateTimeField()
 
     class Meta:
@@ -38,14 +53,24 @@ class ContentView(TimestampedModel):
         unique_together = ["content_type", "object_id", "user", "viewer_ip"]
 
     def __str__(self):
-        return (f"{self.content_type} viewed by {self.user.get_full_name() if self.user else "Anonymouse"}"
-                f"from IP {self.viewer_ip}")
-    
+        return (
+            f"{self.content_type} viewed by {self.user.get_full_name() if self.user else "Anonymouse"}"
+            f"from IP {self.viewer_ip}"
+        )
+
     @classmethod
-    def record_view(cls, content_object:Any, user:Optional[User], viewer_ip:Optional["str"]) -> None: # pyright: ignore[reportInvalidTypeForm]
+    def record_view(cls, content_object: Any, user: Optional[User], viewer_ip: Optional["str"]) -> None:  # pyright: ignore[reportInvalidTypeForm]
         content_type = ContentType.objects.get_for_model(content_object)
         try:
-            view, created = cls.objects.get_or_create(content_type=content_type, object_id=content_object.id, defaults={"user":user, "viewer_ip": viewer_ip, "last_viewed":timezone.now()})
+            view, created = cls.objects.get_or_create(
+                content_type=content_type,
+                object_id=content_object.id,
+                defaults={
+                    "user": user,
+                    "viewer_ip": viewer_ip,
+                    "last_viewed": timezone.now(),
+                },
+            )
             if not created:
                 view.last_viewed = timezone.now()
                 view.save()

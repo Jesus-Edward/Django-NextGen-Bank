@@ -51,6 +51,8 @@ def send_email_locked_account(self):
 
     try:
         email.send()
-        logger.info(f"Email sent to {self.email} successfully")
+        logger.error(f"Email sent to {self.email} successfully")
     except Exception as e:
-        logger.error(f"Failed to send email to {self.email}: Error: {str(e)}")
+        logger.error(
+            f"Failed login attempts: {self.failed_login_attempts} for user: {self.email}: Error: {str(e)}"
+        )
