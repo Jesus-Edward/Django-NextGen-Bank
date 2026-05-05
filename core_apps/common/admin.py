@@ -9,7 +9,14 @@ from .models import ContentView
 @admin.register(ContentView)
 
 class ContentViewAdmin(admin.ModelAdmin):
-    list_display = ["content_type", "content_object", "user", "viewer_ip", "last_viewed", "created_at"]
+    list_display = [
+        "content_object",
+        "content_type",
+        "user",
+        "viewer_ip",
+        "last_viewed",
+        "created_at",
+    ]
     list_filter = ["content_type", "last_viewed", "created_at"]
     date_hierarchy = "last_viewed"
     readonly_fields = [
@@ -56,7 +63,7 @@ class ContentViewAdmin(admin.ModelAdmin):
 
     def has_add_permission(self, request: HttpRequest) -> bool:
         return False
-    
+
     def has_change_permission(self, request: HttpRequest, obj: Any = None) -> bool:
         return False
 

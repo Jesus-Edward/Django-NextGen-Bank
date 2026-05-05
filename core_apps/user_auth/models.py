@@ -12,22 +12,16 @@ import uuid
 class User(AbstractUser):
     class SecurityQuestion(models.TextChoices):
         MAIDEN_NAME = (
-            (
-                "maiden_name",
-                _("What is your mother's maiden name?"),
-            ),
+            "maiden_name",
+            _("What is your mother's maiden name?"),
         )
         BIRTH_CITY = (
-            (
-                "birth_city",
-                _("What city were you born?"),
-            ),
+            "birth_city",
+            _("What city were you born?"),
         )
         CHILDHOOD_FRIEND = (
-            (
-                "best_friend_name",
-                _("What is your childhood friend's name?"),
-            ),
+            "best_friend_name",
+            _("What is your childhood friend's name?"),
         )
         FAVOURITE_CLOUR = (
             "favourite_colour",
@@ -36,29 +30,26 @@ class User(AbstractUser):
 
     class AccountStatus(models.TextChoices):
         ACTIVE = (
-            (
-                "active",
-                _("Active"),
-            ),
+            "active",
+            _("Active"),
         )
         LOCKED = (
-            (
-                "locked",
-                _("Locked"),
-            ),
+            "locked",
+            _("Locked"),
         )
 
     class Roles(models.TextChoices):
-        CUSTOMER = ("customer", _("Customer"))
+        CUSTOMER = (
+            "customer",
+            _("Customer"),
+        )
         ACCOUNT_EXECUTIVE = (
             "account_executive",
             _("Account Executive"),
         )
         TELLER = (
-            (
-                "teller",
-                _("Teller"),
-            ),
+            "teller",
+            _("Teller"),
         )
         BRANCH_MANAGER = (
             "branch_manager",

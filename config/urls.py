@@ -3,6 +3,7 @@ from django.contrib import admin
 from django.urls import path, include
 from drf_spectacular.views import SpectacularSwaggerView, SpectacularRedocView, SpectacularAPIView
 from core_apps.user_auth import urls
+from core_apps.user_profile import urls as user_profile_urls
 
 urlpatterns = [
     path(settings.ADMIN_URL, admin.site.urls),
@@ -11,6 +12,7 @@ urlpatterns = [
     path("api/v1/schema/redoc", SpectacularRedocView.as_view(url_name="schema"), name="redoc"),
     path("api/v1/auth/", include("djoser.urls")),
     path("api/v1/auth/", include(urls)),
+    path("api/v1/profiles/", include(user_profile_urls)),
 ]
 
 admin.site.site_header = "NextGen Bank Admin"
