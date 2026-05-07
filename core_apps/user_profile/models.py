@@ -9,6 +9,7 @@ from django_countries.fields import CountryField
 from phonenumber_field.modelfields import PhoneNumberField
 from django.utils.translation import gettext_lazy as _
 from core_apps.common.models import TimestampedModel
+from core_apps.accounts.models import BankAccount
 # Create your models here.
 
 User = get_user_model()
@@ -67,6 +68,8 @@ class Profile(TimestampedModel):
     employer_address = models.CharField(_("Employer Address"), blank=True, null=True, max_length=150)
     employer_city = models.CharField(_("Employer City"), blank=True, null=True, max_length=100)
     employer_state = models.CharField(_("Employer City"), blank=True, null=True, max_length=100)
+    account_currency = models.CharField(_("Account Currency"), max_length=20, choices=BankAccount.AccountCurrency.choices, null=True, blank=True)
+    account_type = models.CharField(_("Account Type"), max_length=20, choices=BankAccount.AccountType.choices, null=True, blank=True)
     photo = CloudinaryField(_("Photo"), blank=True, null=True)
     photo_url =  models.URLField(_("Photo URL"), blank=True, null=True)
     id_photo = CloudinaryField(_("ID Photo"), blank=True, null=True)

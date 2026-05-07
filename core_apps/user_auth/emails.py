@@ -19,13 +19,13 @@ def send_email_otp(email, otp):
 
     html_email = render_to_string("emails/otp_email.html", context=context)
     plain_email = strip_tags(html_email)
-    email = EmailMultiAlternatives(
+    emails = EmailMultiAlternatives(
         subject=subject, body=plain_email, from_email=from_email, to=recipient_email
     )
-    email.attach_alternative(html_email, "text/html")
+    emails.attach_alternative(html_email, "text/html")
 
     try:
-        email.send()
+        emails.send()
         logger.info(f"OTP sent to {email} successfully")
     except Exception as e:
         logger.error(f"Failed to send OTP to {email}: Error: {str(e)}")

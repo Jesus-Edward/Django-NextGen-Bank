@@ -15,6 +15,8 @@ from core_apps.common.models import ContentView
 from .models import Profile, NextOfKin
 from .tasks import upload_photos_to_cloudinary
 
+from core_apps.accounts.models import BankAccount
+
 User = get_user_model()
 
 
@@ -61,6 +63,8 @@ class ProfileSerializer(serializers.ModelSerializer):
     photo_url = serializers.URLField(read_only=True, required=False)
     signature_photo_url = serializers.URLField(read_only=True, required=False)
     view_count = serializers.SerializerMethodField()
+    account_currency = serializers.ChoiceField(choices=BankAccount.AccountCurrency.choices)
+    account_type = serializers.ChoiceField(choices=BankAccount.AccountType.choices)
 
     class Meta:
         model = Profile
@@ -104,6 +108,8 @@ class ProfileSerializer(serializers.ModelSerializer):
             "signature_photo",
             "signature_photo_url",
             "view_count",
+            "account_currency",
+            "account_type",
         ]
 
         ready_only_field = [
