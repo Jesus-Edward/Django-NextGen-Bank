@@ -1,0 +1,17 @@
+{% extends 'emails/base.html' %}
+
+{% block title %}
+Bank Account Activated
+{% endblock %}
+
+
+{% block content %}
+<h2>Welcome to {{site_name}}</h2>
+<p>Dear<strong> {{account.user.full_name}},</strong></p>
+<p>We're pleased to inform you that your bank account <b>(Account Number: {{account.account_number}})</b> has been fully activated</p>
+<p>You can now enjoy all the services and features associated with your account.</p>
+
+<p>If you have any further questions or need any assistance, don't hesitate to contact our customer support.</p>
+<p>Thank you for choosing <strong>{{site_name}}</strong></p>
+<p>Best regards <br><strong>{{site_name}} Team</strong></p>
+{% endblock content %}

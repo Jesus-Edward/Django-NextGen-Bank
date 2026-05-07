@@ -4,6 +4,7 @@ from django.urls import path, include
 from drf_spectacular.views import SpectacularSwaggerView, SpectacularRedocView, SpectacularAPIView
 from core_apps.user_auth import urls
 from core_apps.user_profile import urls as user_profile_urls
+from core_apps.accounts import urls as bank_account_urls
 
 urlpatterns = [
     path(settings.ADMIN_URL, admin.site.urls),
@@ -13,6 +14,7 @@ urlpatterns = [
     path("api/v1/auth/", include("djoser.urls")),
     path("api/v1/auth/", include(urls)),
     path("api/v1/profiles/", include(user_profile_urls)),
+    path("api/v1/accounts/", include(bank_account_urls)),
 ]
 
 admin.site.site_header = "NextGen Bank Admin"
