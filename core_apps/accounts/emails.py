@@ -39,7 +39,6 @@ def send_account_activation_email(account: BankAccount):
     context = {
         "account": account,
         "site_name": settings.SITE_NAME,
-        "expiry_time": settings.OTP_EXPIRATION,
     }
 
     html_email = render_to_string("emails/bank_account_activated.html", context=context)
@@ -54,3 +53,30 @@ def send_account_activation_email(account: BankAccount):
         logger.info(f"Account activvation email sent to {account.user.email} successfully")
     except Exception as e:
         logger.error(f"Failed to send Account activation email to {account.user.email}: Error: {str(e)}")
+
+def send_deposit_email(user, user_email, amount, currency, new_balance, account_number):
+    subject = _("Deposit Confirmation")
+    from_email = settings.DEFAULT_FROM_EMAIL
+    recipient_email = [user_email]
+
+    context = {
+        "user": user,
+        "amount": amount,
+        "currency": currency,
+        "account_number": account_number,
+        "new_balance": new_balance,
+        "site_name": settings.SITE_NAME,
+    }
+
+    html_email = render_to_string("emails/deposit_confirmation.html", context=context)
+    plain_email = strip_tags(html_email)
+    email = EmailMultiAlternatives(
+        subject=subject, body=plain_email, from_email=from_email, to=recipient_email
+    )
+    email.attach_alternative(html_email, "text/html")
+
+    try:
+        email.send()
+        logger.info(f"Deposit Confirmation email sent to {user_email} successfully")
+    except Exception as e:
+        logger.error(f"Failed to send Deposit Confirmation email to {user_email}: Error: {str(e)}")
