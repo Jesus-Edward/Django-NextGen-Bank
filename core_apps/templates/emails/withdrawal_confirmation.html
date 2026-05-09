@@ -1,0 +1,25 @@
+{% extends 'emails/base.html' %}
+
+{% load humanize %}
+
+{% block title %}
+    Withdrawal Confirmation
+{% endblock %}
+
+
+{% block content %}
+    <h2>Withdrawal Confirmation</h2>
+    <p>Dear<strong>{{user}},</strong></p>
+    <p>We're writing to confirm that a withdrawal has been made from your account.</p>
+    <p>Here are the details of the transaction:</p>
+    <ul>
+        <li><strong>Withdrawal Amount: {{currency}} {{amount|intcomma}}</strong></li>
+        <li><strong>Account Number: {{account_number}}</strong></li>
+        <li><strong>New Balance: {{currency}} {{new_balance|intcomma}}</strong></li>
+    </ul>
+
+    <p>If you're not aware of this transaction or have any further questions, please contact our customer support
+        immediately.</p>
+    <p>Thank you for banking with <strong>{{site_name}}</strong></p>
+    <p>Best regards, <br><strong>{{site_name}} Team</strong></p>
+{% endblock content %}

@@ -10,7 +10,7 @@
 {% block content %}
 <h2>Deposit Confirmation</h2>
 <p>Dear<strong>{{user.full_name}},</strong></p>
-<p>We're plleased to inform you that a deposit has been made to your bank acccount successfully</p>
+<p>We're pleased to inform you that a deposit has been made to your bank acccount successfully</p>
 <p>Here are the details of the transaction:</p>
 <ul>
     <li><strong>Amount: {{currency}} {{amount|intcomma}}</strong></li>
@@ -19,6 +19,6 @@
 </ul>
 
 <p>If you did not authorise this transaction or have any further questions, please contact our customer support immediately.</p>
-<p>Thank you for banking <strong>{{site_name}}</strong></p>
+<p>Thank you for banking with <strong>{{site_name}}</strong></p>
 <p>Best regards, <br><strong>{{site_name}} Team</strong></p>
 {% endblock content %}
