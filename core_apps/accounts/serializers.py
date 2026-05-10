@@ -181,7 +181,8 @@ class SecurityQuestionSerializer(serializers.Serializer):
             raise serializers.ValidationError(_("Incorrect security answer."))
         return data
 
-class OTPSerializer(serializers.Serializer):
+
+class OTPVerificationSerializer(serializers.Serializer):
     otp = serializers.CharField(max_length=6)
 
     def validate(self, data:dict) -> dict:
@@ -189,6 +190,7 @@ class OTPSerializer(serializers.Serializer):
         if not user.verify_otp(data["otp"]):
             raise serializers.ValidationError(_("Invalid or expired otp."))
         return data
+
 
 class UsernameVerificationSerializer(serializers.Serializer):
     username = serializers.CharField(max_length=20)

@@ -108,7 +108,7 @@ def send_withdrawal_email(user, user_email, amount, currency, new_balance, accou
     except Exception as e:
         logger.error(f"Failed to send Withdrawal Confirmation email to {user_email}: Error: {str(e)}")
 
-def send_transferl_email(sender_name, sender_email, sender_acc_num, sender_new_bal, receiver_name, receiver_email, receiver_acc_num, receiver_new_bal, amount, currency):
+def send_transfer_email(sender_name, sender_email, sender_acc_num, sender_new_bal, receiver_name, receiver_email, receiver_acc_num, receiver_new_bal, amount, currency):
     subject = _("Transfer Confirmation")
     from_email = settings.DEFAULT_FROM_EMAIL
 
