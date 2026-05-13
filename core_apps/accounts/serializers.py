@@ -3,7 +3,6 @@ from rest_framework import serializers
 from .models import BankAccount
 from decimal import Decimal
 from core_apps.accounts.models import Transaction
-# from core_apps.accounts.models import Transaction
 
 class AccountVerificationSerializer(serializers.ModelSerializer):
     class Meta:

@@ -1,0 +1,24 @@
+{% extends 'emails/base.html' %}
+
+{% load humanize %}
+
+{% block title %}
+    Virtual Card Top-Up Confirmation
+{% endblock %}
+
+
+{% block content %}
+<h2>Virtual Card Top-Up Confirmation</h2>
+<p>Dear<strong>{{user_full_name}},</strong></p>
+<p>Your virtual card ending with {{card_last_four}} has been successfully topped up.</p>
+<p>Here are the details of the transaction:</p>
+<ul>
+    <li><strong>Amount: {{currency}} {{amount|intcomma}}</strong></li>
+    <li><strong>New Balance: {{currency}} {{new_balance|intcomma}}</strong></li>
+</ul>
+
+<p>If you did not authorise this transaction or have any further questions, please contact our customer support
+    immediately.</p>
+<p>Thank you for using our services</strong></p>
+<p>Best regards, <br><strong>{{site_name}} Team</strong></p>
+{% endblock content %}
