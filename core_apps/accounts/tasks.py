@@ -6,6 +6,7 @@ from celery import shared_task
 from django.contrib.auth import get_user_model
 from django.core.mail import EmailMessage
 from django.db.models import Q
+from django.db import transaction
 from django.utils.translation import gettext_lazy as _
 from loguru import logger
 from reportlab.lib import colors
@@ -136,19 +137,19 @@ def generate_transaction_pdf(user_id, start_date, end_date, account_number=None)
         return f"Error generating PDF: {str(e)}"
 
 
-# @shared_task
-# def apply_daily_interest():
-#     savings_account = BankAccount.objects.filter(
-#         account_type=BankAccount.AccountType.SAVINGS
-#     )
+@shared_task
+def apply_daily_interest():
+    savings_account = BankAccount.objects.filter(
+        account_type=BankAccount.AccountType.SAVINGS
+    )
 
-#     for account in savings_account:
-#         with transaction.atomic():
-#             account.apply_daily_interest()
-#     logger.info(
-#         f"Done applying daily interest to {savings_account.count()} savings accounts"
-#     )
-#     return f"Applied daily interest to {savings_account.count()} savings accounts"
+    for account in savings_account:
+        with transaction.atomic():
+            account.apply_daily_interest()
+    logger.info(
+        f"Done applying daily interest to {savings_account.count()} savings accounts"
+    )
+    return f"Applied daily interest to {savings_account.count()} savings accounts"
 
 
 # @shared_task
