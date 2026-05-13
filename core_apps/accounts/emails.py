@@ -187,3 +187,31 @@ def send_transfer_otp_email(email, otp):
         logger.info(f"Transfer OTP sent to {email} successfully")
     except Exception as e:
         logger.error(f"Failed to send Transfer OTP to {email}: Error: {str(e)}")
+
+
+def send_suspicious_activity_alert(suspicious_activities):
+    subject = _("Suspicious Activity Alert")
+    from_email = settings.DEFAULT_FROM_EMAIL
+    recipient_list = [settings.ADMIN_EMAIL]
+
+    context = {
+        "suspicious_activities": suspicious_activities,
+        "site_name": settings.SITE_NAME,
+    }
+
+    html_email = render_to_string("emails/suspicious_activity_alert.html", context=context)
+    plain_email = strip_tags(html_email)
+    email = EmailMultiAlternatives(
+        subject=subject, body=plain_email, from_email=from_email, to=recipient_list
+    )
+    email.attach_alternative(html_email, "text/html")
+
+    try:
+        email.send()
+        logger.info(f"Suspicious Activity Alert email sent to {settings.ADMIN_EMAIL} successfully")
+        return len(suspicious_activities)
+    except Exception as e:
+        logger.error(
+            f"Failed to send Suspicious Activity Alert email to {settings.ADMIN_EMAIL}: Error: {str(e)}"
+        )
+        return 0
