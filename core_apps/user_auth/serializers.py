@@ -17,7 +17,7 @@ class UserCreateSerializer(DjoserUserCreateSerializer):
             "security_question",
             "security_answer",
         ]
-    
+
     def create(self, validated_data):
         user = User.objects.create(**validated_data)
         return user

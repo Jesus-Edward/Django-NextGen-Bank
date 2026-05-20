@@ -11,7 +11,7 @@ from django.utils.translation import gettext_lazy as _
 from rest_framework import permissions
 
 
-def generate_usernmae() -> str:
+def generate_username() -> str:
     bank_name = getenv("BANK_NAME")
     words = bank_name.split()
     prefix = "".join([word[0] for word in words]).upper()
@@ -32,6 +32,7 @@ def validate_email_address(email: str) -> None:
 
 class UserManager(DjangoUserManager):
     permission_classes = [permissions.AllowAny]
+
     def _create_user(self, email: str, password: str, **extra_fields: Any):
         if not email:
             raise ValueError(_("Email field is required"))
@@ -39,7 +40,7 @@ class UserManager(DjangoUserManager):
         if not password:
             raise ValueError(_("Password field is required"))
 
-        username = generate_usernmae()
+        username = generate_username()
         email = self.normalize_email(email)
         validate_email_address(email)
 
