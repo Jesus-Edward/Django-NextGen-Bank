@@ -38,7 +38,20 @@ banker-db:
 	docker compose -f local.yml exec postgres psql --username=august.dev --dbname=banker
 
 show-migrations:
-	docker compose -f local.yml run --rm api python manage.py showmigrations user_profile
+	docker compose -f local.yml run --rm api python manage.py showmigrations $(MODEL)
 
 rollback:
-	docker compose -f local.yml run --rm api python manage.py migrate user_profile zero
+	docker compose -f local.yml run --rm api python manage.py migrate $(MODEL) zero
+
+create-pgdb-backup:
+	docker compose -f local.yml exec postgres backup.sh
+
+view-pgdb-backups:
+	docker compose -f local.yml exec postgres backups.sh
+
+restore-pgdb-backups:
+	@if [ -z "$(BACKUP)" ]; then \
+		echo "Usage: make restore-pgdb-backups BACKUP=<backup_file>"; \
+		exit 1; \
+	fi
+	docker compose -f local.yml exec postgres restore.sh $(BACKUP)
